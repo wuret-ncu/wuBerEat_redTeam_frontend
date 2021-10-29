@@ -1,0 +1,65 @@
+.banner{
+    width: 100%;
+    height: 100vh;
+    background-color: rgb(255, 255, 255);
+    background: 
+        linear-gradient(95deg, rgb(59,52,105) 60%, 
+        transparent 60%)center center/100% 100%,
+        /* url("https://picsum.photos/1200/600?random=10") right center /auto 100%, 假圖*/
+        rgb(255,186,51)    
+}
+.context{
+    position: absolute;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    
+}
+@media(max-width:768px){
+    .context{
+        position: absolute;
+        right: 0%;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
+.singintext{
+    font-size: 20px;
+    color: rgb(91, 80, 160);
+}
+.singuptext{    
+    font-size: 20px;
+}
+.singuptext a{
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    transition: all 0.3s ease 0s;
+}
+.singuptext a:hover{
+    text-decoration: none;
+    color: rgb(91, 80, 160);
+    transform: translateY(-50px);
+}
+
+.hr{
+    padding:0px ;
+    margin: 10px 5px;
+    border: 0px;
+    /* box-shadow: 1px 1px 1px 1px rgb(255, 205, 40,0.4); */
+}
+.form{
+    margin-top: 5px;
+    text-align: left;
+}
+input{
+    margin: 10px 0px;
+}
+.button{
+    margin: 10px 0px;
+    width: 100%; 
+    transition: all 0.3s ease 0s;
+}
+
+/* .button:hover{
+    transform: translateY(-7px);
+} */

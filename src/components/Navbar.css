@@ -1,0 +1,19 @@
+nav{
+    background-color: rgba(87, 76, 155,0.7);
+}
+.navbar {
+    position: fixed;
+    width: 100%;
+    transition: all 0.3s ease 0s;
+    z-index: 100;
+}
+.nav-item {
+    margin-right: 15px;
+}
+div ul li a i {
+    font-size: 20px;
+}
+
+div ul li a :hover {
+    color: rgb(0, 0, 0);
+}

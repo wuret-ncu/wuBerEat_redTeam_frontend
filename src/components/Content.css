@@ -1,0 +1,10 @@
+.cardcontainer{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.card{
+    margin-bottom: 20px;
+}
+.card-body a{
+ width: 100%;
+}
