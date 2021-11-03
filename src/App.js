@@ -1,13 +1,14 @@
 import './App.css';
-import SignIn from './components/SignIn';
-import SignUp from './components/SignUp';
-import Homepage from './components/Homepage';
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
+import Homepage from './pages/Homepage';
 import {
   BrowserRouter,
   Switch,
   Route
 } from 'react-router-dom';
-import Cart from './components/Cart';
+import Cart from './pages/Cart';
+import Record from './pages/Record';
 
 
 function App() {
@@ -26,6 +27,9 @@ function App() {
           </Route>
           <Route path="/Cart">
             <Cart />
+          </Route>
+          <Route path="/Record">
+            <Record />
           </Route>
         </Switch>
       </BrowserRouter>

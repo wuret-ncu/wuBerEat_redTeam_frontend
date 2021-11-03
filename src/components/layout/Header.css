@@ -58,8 +58,8 @@ h1{
 
 .search .fa-search {
     position: absolute;
-    top: 20px;
-    left: 16px
+    top: 10px;
+    left: 40px
 }
 
 .search > button {

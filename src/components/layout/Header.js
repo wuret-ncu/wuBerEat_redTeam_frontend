@@ -9,7 +9,7 @@ export default function Header() {
                         <h1>今晚我想來點...</h1>
                         <div className="search">
                             <input type="text" className="form-control" placeholder="Search..." /> 
-                            <button className="btn btn-outline-dark"><i className="far fa-paper-plane"></i></button> 
+                            <button className="btn btn-outline-dark"><i className="fas fa-search"></i></button> 
                         </div>
                     </div>
                 </div>

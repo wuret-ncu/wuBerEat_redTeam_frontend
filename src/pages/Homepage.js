@@ -1,8 +1,8 @@
 import React from 'react';
-import Navbar from './Navbar';
-import Header from './Header';
-import Content from './Content';
-import Footer from './Footer';
+import Navbar from '../components/layout/Navbar';
+import Header from '../components/layout/Header';
+import Content from '../components/layout/Content';
+import Footer from '../components/layout/Footer'; 
 
 export default function Homepage() {
     return (
