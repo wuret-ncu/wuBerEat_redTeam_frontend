@@ -8,7 +8,7 @@
         /* url("https://picsum.photos/1200/600?random=10") right center /auto 100%, 假圖*/
         rgb(255,186,51)    
 }
-.context{
+.SignIncontext{
     position: absolute;
     right: 5%;
     top: 50%;
@@ -16,26 +16,26 @@
     
 }
 @media(max-width:768px){
-    .context{
+    .SignIncontext{
         position: absolute;
         right: 0%;
         top: 50%;
         transform: translateY(-50%);
     }
 }
-.singintext{
+.leftText{
     font-size: 20px;
     color: rgb(91, 80, 160);
 }
-.singuptext{    
+.rightText{    
     font-size: 20px;
 }
-.singuptext a{
+.rightText a{
     text-decoration: none;
     color: rgb(255, 255, 255);
     transition: all 0.3s ease 0s;
 }
-.singuptext a:hover{
+.rightText a:hover{
     text-decoration: none;
     color: rgb(91, 80, 160);
     transform: translateY(-50px);

@@ -1,7 +1,7 @@
 import React from 'react';
 import './SignIn.css';
 import {Link, useHistory} from 'react-router-dom';
-import { useState } from 'react';
+import { useState,useEffect} from 'react';
 import { apiUserLogin } from '../api';
 
 export default function SignIn() { 
@@ -21,45 +21,30 @@ export default function SignIn() {
     const handleSubmit = (e) =>{
         e.preventDefault();//no refresh
         setpending(true);
-        console.log(data);
+        // console.log(data);
         
-        //login request
-        // fetch('http://127.0.0.1',{
-        //     method:'POST',
-        //     headers:{"Content-Type":"application/json"},
-        //     body : JSON.stringify(data)
-        // })
-        // .then(()=>{
-        //     console.log('success');
-        // })
-        // .catch(() =>{
-        //     console.log("123");
-        //     setpending(false);
-        //     history.push('/SignIn')
-        // })
-
         //apiUserLogin
         apiUserLogin(data)
         .then(res=>{
-            console.log(res);
-            history.push('/Homepage')
+            console.log("success");
+            console.log(res.data);
+            // history.push('/Homepage')
         })
         .catch(err=>{
             setpending(false);
             console.log(err);
         })
     }
-        
 
 
     return (  
         <div className="banner"> 
-            <div className = "container context">
+            <div className = "container SignIncontext">
                 <div className="row justify-content-md-end justify-content-sm-center">
                     <div className="col col-md-4 col-sm-12">
                         <div className="row">
-                            <span className="singintext col col-lg-7">Sign In</span>
-                            <span className="singuptext col col-lg-5 text-end"><Link to="/SignUp" >+Sign Up</Link></span>
+                            <span className="leftText col col-lg-7">Sign In</span>
+                            <span className="rightText col col-lg-5 text-end"><Link to="/SignUp" >+Sign Up</Link></span>
                         </div>
                         <hr className="hr"/> 
                         <form className ="form" onSubmit={handleSubmit}>

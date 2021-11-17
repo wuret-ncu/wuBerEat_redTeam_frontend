@@ -39,12 +39,12 @@ export default function SignIn() {
 
     return (  
         <div className="banner"> 
-            <div className = "container context">
+            <div className = "container SignIncontext">
                 <div className="row justify-content-md-end justify-content-sm-center">
                     <div className="col col-md-4 col-sm-12">
                         <div className="row">
-                            <span className="singintext col col-lg-7">Sign In</span>
-                            <span className="singuptext col col-lg-5 text-end"><Link to="/SignIn" >+Sign Up</Link></span>
+                            <span className="leftText col col-lg-7">Sign In</span>
+                            <span className="rightText col col-lg-5 text-end"><Link to="/SignIn" >+Sign Up</Link></span>
                         </div>
                         <hr className="hr"/> 
                         <form className ="form" onSubmit={handleSubmit}>

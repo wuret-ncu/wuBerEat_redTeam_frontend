@@ -1,61 +1,36 @@
 import React from 'react'
-import './Content.css'
-import {useEffect } from 'react';
-import AOS from 'aos';
-import 'aos/dist/aos.css';
-
+import ContentItem from './Content_Item';
+import {useState,useEffect } from 'react';
+import { apiContentItem } from '../../api';
 
 export default function Content() {
+    const[contentItem,setContentItem] = useState([])
     
-    useEffect(() => {     //aos
-        AOS.init({
-          duration : 1000
-        });
-      }, []);
+    //Content Item 
+    useEffect(() => {    
+        apiContentItem()
+        .then(res=>{
+            setContentItem(res.data);
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+    }, );
 
     return (
-        <div className="container cardcontainer">
+        <div className="container cardcontainer mt-5 mb-5">
             <div className="row">
-                <div className="col-12 col-md-3">
-                    <div className="card" data-aos="fade-down" data-aos-offset="250">
-                        <img src="https://picsum.photos/1200/600?random=10" className="card-img-top" alt="..." />
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="/#" className="btn btn-primary">Add to cart</a>
-                        </div>
-                    </div>
-                </div>
-                <div className="col-12 col-md-3">
-                    <div className="card" data-aos="fade-down" data-aos-offset="250">
-                        <img src="https://picsum.photos/1200/600?random=10" className="card-img-top" alt="..." />
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="/#" className="btn btn-primary">Add to cart</a>
-                        </div>
-                    </div>
-                </div>
-                <div className="col-12 col-md-3">
-                    <div className="card" data-aos="fade-down" data-aos-offset="250">
-                        <img src="https://picsum.photos/1200/600?random=10" className="card-img-top" alt="..." />
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="/#" className="btn btn-primary">Add to cart</a>
-                        </div>
-                    </div>
-                </div>
-                <div className="col-12 col-md-3">
-                    <div className="card" data-aos="fade-down" data-aos-offset="250">
-                        <img src="https://picsum.photos/1200/600?random=10" className="card-img-top" alt="..." />
-                        <div className="card-body">
-                            <h5 className="card-title">Card title</h5>
-                            <p className="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                            <a href="/#" className="btn btn-primary">Add to cart</a>
-                        </div>
-                    </div>
-                </div>
+                {contentItem.map(item =>{
+                    const{ url, title, id} = item
+                    return(
+                        <ContentItem 
+                            cardImgSrc={url} 
+                            cardTitle={id} 
+                            cardContent={title}
+                            key={id}
+                        />
+                    );  
+                })}    
             </div>
         </div>
     )
