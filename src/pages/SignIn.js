@@ -1,13 +1,14 @@
 import React from 'react';
 import './SignIn.css';
 import {Link, useHistory} from 'react-router-dom';
-import { useState,useEffect} from 'react';
-import { apiUserLogin } from '../api';
+import { useState, useEffect} from 'react';
+import { apiUserLogin, apiUserhasLogged } from '../api';
 
 export default function SignIn() { 
-    const[data,setdata]=useState({})//data account password
-    const[pending,setpending]=useState(false) //Button pending
+    const[data,setdata] = useState({})//data account password
+    const[pending,setpending] = useState(false) //Button pending
     const history = useHistory();
+    const[loginStatus, setLoginStatus] = useState("")
 
 //onChange event 帳號密碼input
     const handleChange = (e) => {    
@@ -21,14 +22,16 @@ export default function SignIn() {
     const handleSubmit = (e) =>{
         e.preventDefault();//no refresh
         setpending(true);
-        // console.log(data);
         
-        //apiUserLogin
+        //Login
         apiUserLogin(data)
         .then(res=>{
-            console.log("success");
-            console.log(res.data);
-            // history.push('/Homepage')
+            console.log(res.data.success);
+            if(res.data.success == "login success"){
+                console.log(res.data);
+                setpending(false);
+                history.push('/Homepage')  
+            }          
         })
         .catch(err=>{
             setpending(false);
@@ -36,6 +39,18 @@ export default function SignIn() {
         })
     }
 
+    //判斷user是否驗證過
+    // useEffect(()=>{
+    //     apiUserhasLogged()
+    //     .then( res =>{
+    //         console.log(res.data);
+    //         // if (res.data.loggedIn == true){
+    //         // 顯示成功之類的 或直接跳首頁
+    //         // }
+    //     }).catch( err => {
+    //         console.log(err);
+    //     })
+    // },[])
 
     return (  
         <div className="banner"> 

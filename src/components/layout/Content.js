@@ -15,7 +15,7 @@ export default function Content() {
         .catch(err=>{
             console.log(err);
         })
-    }, );
+    },[]);
 
     return (
         <div className="container cardcontainer mt-5 mb-5">

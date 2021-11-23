@@ -42,6 +42,9 @@ export default function Navbar() {
                         <li className="nav-item">
                             <a className="nav-link" href="/#"><i className="fas fa-shopping-cart"></i> </a>
                         </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="/#">logout</a>
+                        </li>
                     </ul>
                 </div>
             </div>
