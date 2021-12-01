@@ -3,7 +3,7 @@ import Navbar from '../components/layout/Navbar';
 import CartItem from '../components/layout/Cart_Item';
 import {Link} from 'react-router-dom';
 import './Cart.css';
-import { useState, useEffect } from 'react'; 
+// import { useState, useEffect } from 'react'; 
 
 export default function Cart() {
     return (

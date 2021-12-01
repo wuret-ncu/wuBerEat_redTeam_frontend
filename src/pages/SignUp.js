@@ -1,17 +1,19 @@
 import React from 'react';
 import './SignIn.css';
-import {Link, useHistory} from 'react-router-dom';
-import { useState } from 'react';
+import {Link} from 'react-router-dom';
+import { useState, useContext } from 'react';
+import { AuthContext } from '../AuthContextapi';
+import { apiUserRegister } from '../api';
 
 export default function SignIn() { 
-    const[data,setdata]=useState({})//data account password
+    const[userdata,setUserdata]=useState({})//data account password
     const[pending,setpending]=useState(false) //Button pending
-    const history = useHistory();
+    const[userContext,setUserContext] = useContext(AuthContext)
     
 //onChange event 帳號密碼input
     const handleChange = (e) => {    
         const{name, value} = e.target;
-        setdata(prev =>({
+        setUserdata(prev =>({
             ...prev,
             [name]:value
         }));
@@ -20,20 +22,19 @@ export default function SignIn() {
     const handleSubmit = (e) =>{
         e.preventDefault();//no refresh
         setpending(true);
-        console.log(data);
-//login request
-        fetch('http://127.0.0.1',{
-            method:'POST',
-            headers:{"Content-Type":"application/json"},
-            body : JSON.stringify(data)
+        
+        //Register API
+        apiUserRegister(userdata)
+        .then(async response=>{
+            const data = await response.data
+            setUserContext( prev => {
+                return{...prev, token : data.token}
+            })
+            setpending(false);    
         })
-        .then(()=>{
-            console.log('success');
-        })
-        .catch(() =>{
-            console.log("123");
+        .catch(err=>{
             setpending(false);
-            history.push('/SignIn')
+            console.log(err);
         })
     }
 
@@ -49,13 +50,40 @@ export default function SignIn() {
                         <hr className="hr"/> 
                         <form className ="form" onSubmit={handleSubmit}>
                             <div>
-                                <input type="text" name="name" className="form-control"  placeholder="Name"  onChange={handleChange}/>                       
+                                <input 
+                                    type="text" 
+                                    name="username" 
+                                    className="form-control"  
+                                    placeholder="UserName"  
+                                    onChange={handleChange}
+                                />                       
                             </div>
                             <div>
-                                <input type="text" name="account" className="form-control"  placeholder="Account"  onChange={handleChange}/>                       
+                                <input 
+                                    type="text" 
+                                    name="password" 
+                                    className="form-control"  
+                                    placeholder="password"  
+                                    onChange={handleChange}
+                                />                       
                             </div>
                             <div>
-                                <input type="password" name="password" className="form-control" placeholder="Password"  onChange={handleChange}/>
+                                <input 
+                                    type="text" 
+                                    name="firstName" 
+                                    className="form-control"  
+                                    placeholder="fristname"  
+                                    onChange={handleChange}
+                                />                       
+                            </div>
+                            <div>
+                                <input 
+                                    type="text" 
+                                    name="lastName" 
+                                    className="form-control"  
+                                    placeholder="lastname"  
+                                    onChange={handleChange}
+                                />                       
                             </div>
                             {!pending&&<button type="submit" className="btn btn-dark button">Submit</button>}
                             {pending&&<button type="submit" className="btn btn-dark button" disabled>Submitting...</button>}

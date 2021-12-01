@@ -1,14 +1,27 @@
 import React from 'react';
 import './Navbar.css';
-import { useState, useEffect } from 'react';
-
+import { useState, useEffect, useContext} from 'react';
+import { AuthContext } from '../../AuthContextapi';
+import { apiUserLogout } from '../../api';
 
 export default function Navbar() {
     const [moveNav, setmoveNav] = useState(0)
-     
+    const [userContext, setUserContext] = useContext(AuthContext)
+
+    //Logout
+    const handlerLogout = () => {
+        apiUserLogout({headers:{Authorization: `Bearer ${userContext.token}`}})
+        .then(async res => {
+            setUserContext(prev =>{
+                return{...prev, datails:undefined , token:null}
+            })
+            window.localStorage.setItem("logout",Date.now())
+        })
+    }
+
+    //navbar hide &show
     useEffect(()=>{
         var lastScrollTop = 0;
-        //navbar hide &show
         const handleScroll = () => {
           var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
           if(scrollTop > lastScrollTop){
@@ -43,7 +56,7 @@ export default function Navbar() {
                             <a className="nav-link" href="/#"><i className="fas fa-shopping-cart"></i> </a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/#">logout</a>
+                            <span className="nav-link" onClick={handlerLogout}>logout</span>
                         </li>
                     </ul>
                 </div>
