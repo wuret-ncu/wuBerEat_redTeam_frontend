@@ -1,10 +1,11 @@
 import React from 'react';
-import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
-import Homepage from './pages/Homepage';
-import Cart from './pages/Cart';
-import Record from './pages/Record';
-import Edit from './pages/Edit';
+import SignIn from './pages/SignInUp/SignIn';
+import SignUp from './pages/SignInUp/SignUp';
+import Homepage from './pages/Home/Homepage';
+import Cart from './pages/Cart/Cart'
+import Record from './pages/Record/Record'
+import Edit from './pages/EditMenu/Edit';
+import Loader from './pages/Loader';
 import {
   BrowserRouter as Router,
   Switch,
@@ -12,30 +13,32 @@ import {
   Redirect
 } from 'react-router-dom';
 import {useEffect, useContext, useCallback } from 'react';
-import { AuthContext } from './AuthContextapi';
-import { apiUserRefreshToken } from './api';
+import { AuthContext } from './global/AuthContextapi';
+import { apiUserRefreshToken } from './global/api';
 
 function App() {
   const[userContext, setUserContext] = useContext(AuthContext);
-  
-  const verifyUser = useCallback(()=>{
-    //RefreshToken API
-    apiUserRefreshToken({
-      headers:{Authorization: `Bearer ${userContext.token}`}
-  })
-    .then( async res =>{
-      if(res.ok){
-        const data = await res.json()
-        setUserContext( prev =>{
-          return{...prev, token : data.token} 
-        })
-      } else{
-        setUserContext( prev => {
-          return{...prev, token : null}
-        })
-      }
-      setTimeout(verifyUser, 5 * 60 * 1000)
-    })
+
+    //useCallback to avoid re-declaration when component re-renders
+    const verifyUser = useCallback(()=>{
+      //RefreshToken API
+      apiUserRefreshToken(null,{
+        headers:{Authorization: `Bearer ${userContext.token}`}
+      })
+      .then( async res =>{
+        console.log(res);
+        if(res.statusText === 'OK'){
+          const data = await res.json()
+          setUserContext( prevData =>{
+            return{...prevData, token : data.token} 
+          })
+        } else{
+          setUserContext( prevData => {
+            return{...prevData, token : null}
+          })
+        }
+        setTimeout(verifyUser, 5 * 60 * 1000)
+      })
   },[setUserContext])
 
   useEffect(()=>{
@@ -82,7 +85,7 @@ const ProtectedLogin = ({auth,component:Component, ...rest}) =>{
         (
           <Redirect to ="/Homepage" />
         ):(
-          console.log("loading page")
+          <Loader />
         )
       }
     />
@@ -100,7 +103,7 @@ const ProtectedRoute = ({auth,component:Component, ...rest}) =>{
         (
           <Redirect to ="/SignIn" />
         ):(
-          console.log("loading page")
+          <Loader />
         )
       }
     />

@@ -1,9 +1,9 @@
 import React from "react";
 import { useState } from "react";
 const AuthContext = React.createContext([{}, ()=>{}]);
-let initialState = {}
+
 const AuthProvider = props => {
-    const [state, setState] = useState(initialState)
+    const [state, setState] = useState({})
     
     return(
         <AuthContext.Provider value = {[state, setState]}>

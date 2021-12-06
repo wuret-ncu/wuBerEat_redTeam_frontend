@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {AuthProvider} from './AuthContextapi'
+import {AuthProvider} from './global/AuthContextapi'
 
 ReactDOM.render(
   <React.StrictMode>

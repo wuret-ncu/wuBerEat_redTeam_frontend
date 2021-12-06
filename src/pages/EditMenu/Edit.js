@@ -1,7 +1,8 @@
 import React from 'react'
-import Navbar from '../components/layout/Navbar'
+import Navbar from '../../components/Navbar'
+import Footer from '../../components/Footer'
 import { useState} from 'react'
-import { apiUpLoadmenu } from '../api'
+import { apiUpLoadmenu } from '../../global/api'
 
 export default function Edit() {
     const[menuData, setMenuData] = useState({})
@@ -46,7 +47,7 @@ export default function Edit() {
             console.log(err);
         })
 
-        //consile log formData
+        //印出 formData
         // for (var pair of formData.entries()) {
         //     console.log(pair[0]+ ', ' + pair[1]); 
         // }
@@ -54,7 +55,7 @@ export default function Edit() {
     return (
         <>
             <Navbar />
-            <div className="container" style={{marginTop:'70px'}}>
+            <div className="container" style={{marginTop:70,marginBottom:80,minHeight:"100vh"}}>
                 <div className="d-flex justify-content-center">
                     <h5>新增餐廳</h5>
                 </div>
@@ -83,6 +84,7 @@ export default function Edit() {
                     </form>
                 </div>
             </div>
+            <Footer />
         </>
     )
 }

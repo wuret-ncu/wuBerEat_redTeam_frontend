@@ -1,10 +1,10 @@
 import React from 'react'
-import Navbar from '../components/layout/Navbar';
-import RecordItem from '../components/layout/Record_Item';
+import Navbar from '../../components/Navbar'
+import RecordItem from './component/Record_Item';
 import {Link} from 'react-router-dom';
 export default function Record() {
     return (
-        <div>
+        <>
              <Navbar />
              <div className="container cartkv">
                 <div className="row">
@@ -18,6 +18,6 @@ export default function Record() {
                     <RecordItem/>
                 </div>
             </div>
-        </div>
+        </>
     )
 }

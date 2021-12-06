@@ -1,6 +1,6 @@
 import React from 'react';
-import Navbar from '../components/layout/Navbar';
-import CartItem from '../components/layout/Cart_Item';
+import Navbar from '../../components/Navbar';
+import CartItem from './component/Cart_Item';
 import {Link} from 'react-router-dom';
 import './Cart.css';
 // import { useState, useEffect } from 'react'; 

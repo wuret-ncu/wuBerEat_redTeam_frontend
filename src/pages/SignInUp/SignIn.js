@@ -2,8 +2,8 @@ import React from 'react';
 import './SignIn.css';
 import {Link} from 'react-router-dom';
 import { useState, useContext} from 'react';
-import { AuthContext } from '../AuthContextapi';
-import { apiUserLogin } from '../api';
+import { AuthContext } from '../../global/AuthContextapi';
+import { apiUserLogin } from '../../global/api';
 
 export default function SignIn() { 
     const[userdata,setUserdata] = useState({})//data account password
@@ -13,8 +13,8 @@ export default function SignIn() {
 //onChange event 帳號密碼input
     const handleChange = (e) => {    
         const{name, value} = e.target;
-        setUserdata(prev =>({
-            ...prev,
+        setUserdata(prevData =>({
+            ...prevData,
             [name]:value
         }));
     };
@@ -27,8 +27,8 @@ export default function SignIn() {
         apiUserLogin(userdata)
         .then(async response=>{
             const data = await response.data
-            setUserContext( prev => {
-                return{...prev, token : data.token}
+            setUserContext( prevData => {
+                return{...prevData, token : data.token}
             })
             setpending(false);    
         })
@@ -64,16 +64,18 @@ export default function SignIn() {
             <div className = "container SignIncontext">
                 <div className="row justify-content-md-end justify-content-sm-center">
                     <div className="col col-md-4 col-sm-12">
+                        <form className ="form" onSubmit={handleSubmit}>
                         <div className="row">
                             <span className="leftText col col-lg-7">Sign In</span>
                             <span className="rightText col col-lg-5 text-end"><Link to="/SignUp" >+Sign Up</Link></span>
                         </div>
                         <hr className="hr"/> 
-                        <form className ="form" onSubmit={handleSubmit}>
                             <div>
+                                <label htmlFor="username" className="form-label">Username</label>
                                 <input 
-                                    type="text" 
-                                    name="username" 
+                                    type="email" 
+                                    name="username"
+                                    id="username" 
                                     className="form-control"  
                                     placeholder="Account"  
                                     onChange={handleChange}
@@ -81,9 +83,11 @@ export default function SignIn() {
                                 />                        
                             </div>
                             <div>
+                                <label htmlFor="password" className="form-label">Password</label>
                                 <input 
                                     type="password" 
                                     name="password" 
+                                    id="password"
                                     className="form-control" 
                                     placeholder="Password"  
                                     onChange={handleChange}

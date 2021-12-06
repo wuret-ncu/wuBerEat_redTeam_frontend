@@ -3,7 +3,7 @@ import './Footer.css'
 
 export default function Footer() {
     return (
-        <div className="container-fluid footerbg">
+        <footer className="container-fluid footerbg navbar-fixed-bottom">
             <div className="row justify-content-center align-items-center">
                 <div className="col-4">
                     <span className="text">
@@ -14,6 +14,6 @@ export default function Footer() {
                     </span>
                 </div>
             </div>
-        </div>
+        </footer>
     )
 }

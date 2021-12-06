@@ -1,7 +1,7 @@
 import React from 'react'
 import ContentItem from './Content_Item';
 import {useState,useEffect } from 'react';
-import { apiContentItem } from '../../api';
+import { apiContentItem } from '../../../global/api';
 
 export default function Content() {
     const[contentItem,setContentItem] = useState([])
@@ -18,7 +18,7 @@ export default function Content() {
     },[]);
 
     return (
-        <div className="container cardcontainer mt-5 mb-5">
+        <div className="container cardcontainer mt-5" style={{marginBottom:80}}>
             <div className="row">
                 {contentItem.map(item =>{
                     const{ url, title, id} = item

@@ -1,5 +1,4 @@
 import React from 'react';
-import './Cart_Item.css'
 
 export default function RecordItem() {
     return (

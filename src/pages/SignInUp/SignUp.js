@@ -2,8 +2,8 @@ import React from 'react';
 import './SignIn.css';
 import {Link} from 'react-router-dom';
 import { useState, useContext } from 'react';
-import { AuthContext } from '../AuthContextapi';
-import { apiUserRegister } from '../api';
+import { AuthContext } from '../../global/AuthContextapi';
+import { apiUserRegister } from '../../global/api';
 
 export default function SignIn() { 
     const[userdata,setUserdata]=useState({})//data account password
@@ -13,8 +13,8 @@ export default function SignIn() {
 //onChange event 帳號密碼input
     const handleChange = (e) => {    
         const{name, value} = e.target;
-        setUserdata(prev =>({
-            ...prev,
+        setUserdata(prevData =>({
+            ...prevData,
             [name]:value
         }));
     };
@@ -27,8 +27,8 @@ export default function SignIn() {
         apiUserRegister(userdata)
         .then(async response=>{
             const data = await response.data
-            setUserContext( prev => {
-                return{...prev, token : data.token}
+            setUserContext( prevData => {
+                return{...prevData, token : data.token}
             })
             setpending(false);    
         })
@@ -43,43 +43,47 @@ export default function SignIn() {
             <div className = "container SignIncontext">
                 <div className="row justify-content-md-end justify-content-sm-center">
                     <div className="col col-md-4 col-sm-12">
+                        <form className ="form" onSubmit={handleSubmit}>
                         <div className="row">
                             <span className="leftText col col-lg-7">Sign Up</span>
                             <span className="rightText col col-lg-5 text-end"><Link to="/SignIn" >+Sign In</Link></span>
                         </div>
                         <hr className="hr"/> 
-                        <form className ="form" onSubmit={handleSubmit}>
                             <div>
+                                <label htmlFor="Username" className="form-label">Username</label>
                                 <input 
-                                    type="text" 
-                                    name="username" 
+                                    type="email" 
+                                    name="Username" 
                                     className="form-control"  
                                     placeholder="UserName"  
                                     onChange={handleChange}
                                 />                       
                             </div>
                             <div>
+                                <label htmlFor="Password" className="form-label">Password</label>
                                 <input 
                                     type="text" 
-                                    name="password" 
+                                    name="Password" 
                                     className="form-control"  
                                     placeholder="password"  
                                     onChange={handleChange}
                                 />                       
                             </div>
                             <div>
+                                <label htmlFor="FirstName" className="form-label">FirstName</label>
                                 <input 
                                     type="text" 
-                                    name="firstName" 
+                                    name="FirstName" 
                                     className="form-control"  
                                     placeholder="fristname"  
                                     onChange={handleChange}
                                 />                       
                             </div>
                             <div>
+                                <label htmlFor="LastName" className="form-label">LastName</label>
                                 <input 
                                     type="text" 
-                                    name="lastName" 
+                                    name="LastName" 
                                     className="form-control"  
                                     placeholder="lastname"  
                                     onChange={handleChange}

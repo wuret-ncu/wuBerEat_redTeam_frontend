@@ -1,7 +1,7 @@
 import axios from "axios";
 
 //跨域請求時能正常發出附帶cookie的header
-// axios.defaults.withCredentials = true; 
+//axios.defaults.withCredentials = true; 
 
 //User 相關的 api       
 const userRequest = axios.create({
@@ -11,6 +11,7 @@ const userRequest = axios.create({
 
 // Content 相關的 api
 const contentRequest = axios.create({
+    // 測試用 https://jsonplaceholder.typicode.com
     baseURL:"https://jsonplaceholder.typicode.com",
     headers:{"Content-Type":"application/json"},
 });
@@ -18,7 +19,8 @@ const contentRequest = axios.create({
 //餐廳資訊上傳 相關的 api
 const upLoadmenu = axios.create({
     //http://140.115.126.95/menu
-    baseURL:"https://v2.convertapi.com",
+    // 測試用 https://v2.convertapi.com
+    baseURL:"http://140.115.126.95/menu",
     //headers:{'Content-Type':'multipart/form-data'}
 });
 
@@ -27,10 +29,11 @@ const cartRequest = axios.create({
   baseURL:"https://jsonplaceholder.typicode.com",
   headers:{"Content-Type":"application/json"},
 });
-//axios interceptors 
+
+//User interceptors 
 userRequest.interceptors.request.use(
   config => { 
-      console.log(config);
+      //console.log(config);
       return config;
   },
   error => {
@@ -54,7 +57,7 @@ userRequest.interceptors.response.use(
               // go to 500 page
               break
             default:
-              console.log(error.response.data)
+              console.log(error.response)
           }
         } 
         if (!window.navigator.onLine) {
@@ -68,14 +71,14 @@ userRequest.interceptors.response.use(
 export const apiUserLogin = (data) => userRequest.post('/login2',data);
 export const apiUserLogout = (config) => userRequest.get('/logout2',config);
 export const apiUserRegister = (data,config) => userRequest.post('/signup',data,config);
-export const apiUserRefreshToken = (config) =>userRequest.get('/refreshToken',config);
+export const apiUserRefreshToken = (data,config) =>userRequest.post('/refreshToken',data,config);
 export const apiUserDetailsRequest = (config) => userRequest.get('/me',config);
 
 // Content 相關的 api
 export const apiContentItem = () => contentRequest.get('albums/1/photos');
 
 //餐廳資訊上傳 相關的 api
-export const apiUpLoadmenu = ({data}) => upLoadmenu.post('/upload',{data});
+export const apiUpLoadmenu = ({data}) => upLoadmenu.post('/',{data});
 
 //cart 相關的 api
 export const apiCartList = () => cartRequest.get('/albums/1/photos');

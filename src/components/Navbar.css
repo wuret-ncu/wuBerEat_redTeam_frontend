@@ -1,5 +1,5 @@
 nav{
-    background-color: rgba(87, 76, 155,0.7);
+    background-color: rgba(80, 67, 161, 0.7);
 }
 .navbar {
     position: fixed;
@@ -12,8 +12,4 @@ nav{
 }
 div ul li a i {
     font-size: 20px;
-}
-
-div ul li a :hover {
-    color: rgb(0, 0, 0);
 }
