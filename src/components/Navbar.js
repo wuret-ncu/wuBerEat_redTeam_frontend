@@ -2,7 +2,7 @@ import React from 'react';
 import './Navbar.css';
 import { useState, useEffect, useContext} from 'react';
 import { AuthContext } from '../global/AuthContextapi';
-import { apiUserLogout, apiUserRefreshToken} from '../global/api';
+import { apiUserLogout} from '../global/api';
 
 export default function Navbar() {
     const [moveNav, setmoveNav] = useState(0)
@@ -10,31 +10,14 @@ export default function Navbar() {
 
     //Logout
     const handlerLogout = () => {
-        var axios = require('axios');
-
-    var config = {
-    method: 'post',
-    url: 'http://localhost:80/users/refreshToken',
-    headers: { 
-        withCredentials: true 
-        }
-    };
-
-    axios(config)
-    .then(function (response) {
-    console.log(JSON.stringify(response.data));
-    })
-    .catch(function (error) {
-        console.log(config);
-    console.log(error);
-    });
-        // apiUserLogout({headers:{Authorization: `Bearer ${userContext.token}`}})
-        // .then(async res => {
-        //     setUserContext(prev =>{
-        //         return{...prev, datails:undefined , token:null}
-        //     })
-        //     window.localStorage.setItem("logout",Date.now())
-        // })
+        apiUserLogout({headers:{Authorization: `Bearer ${userContext.token}`}})
+        .then(async res => {
+            console.log(res);
+            setUserContext(prev =>{
+                return{...prev, datails:undefined , token:null}
+            })
+            window.localStorage.setItem("logout",Date.now())
+        })
     }
 
     //navbar hide &show
@@ -68,7 +51,7 @@ export default function Navbar() {
                             <a className="nav-link active" aria-current="page" href="/#">Home</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/#"><i className="far fa-user"></i> {userContext.details.firstName}</a>
+                            <a className="nav-link" href="/Edit"><i className="far fa-user"></i> </a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="/#"><i className="fas fa-shopping-cart"></i> </a>

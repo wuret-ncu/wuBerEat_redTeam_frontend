@@ -13,7 +13,8 @@ export default function Homepage() {
 
     const fetchUserDetails = useCallback(()=>{
         apiUserDetailsRequest({
-            headers:{Authorization: `Bearer ${userContext.token}`}
+            headers:{
+                Authorization: `Bearer ${userContext.token}`}
         })
         .then(async response =>{
             if(response.statusText === 'OK'){
@@ -31,31 +32,6 @@ export default function Homepage() {
                     })
                 }
             }
-            
-            
-            // JSON.stringify(userDetailData);
-            // setUserContext( prevData =>{
-            //     return{...prevData, details : userDetailData}
-            // })
-            // if (res.ok){
-            //     console.log("123");
-            //     const data = await res.data
-            //     setUserContext( prev => {
-            //         return {...prev, details :data}
-            //     }
-            //     )
-            // } else { 
-            //     console.log("222");
-            //     if(res.status === 401){
-            //         console.log("333");
-            //         window.location.reload()
-            //     }else{
-            //         console.log("444");
-            //         setUserContext(prev =>{
-            //             return {...prev, details : null}
-            //         })
-            //     }
-            // }
         })
     },[setUserContext, userContext.token])
 

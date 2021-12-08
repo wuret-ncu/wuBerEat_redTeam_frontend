@@ -18,26 +18,24 @@ import { apiUserRefreshToken } from './global/api';
 
 function App() {
   const[userContext, setUserContext] = useContext(AuthContext);
-
     //useCallback to avoid re-declaration when component re-renders
     const verifyUser = useCallback(()=>{
       //RefreshToken API
-      apiUserRefreshToken(null,{
-        headers:{Authorization: `Bearer ${userContext.token}`}
-      })
+      apiUserRefreshToken()
       .then( async res =>{
-        console.log(res);
         if(res.statusText === 'OK'){
-          const data = await res.json()
+          const data = await res.data
           setUserContext( prevData =>{
             return{...prevData, token : data.token} 
           })
-        } else{
+        }
+        setTimeout(verifyUser, 5 * 60 * 1000)
+      })
+      .catch(err=>{
+        console.log(err);
           setUserContext( prevData => {
             return{...prevData, token : null}
           })
-        }
-        setTimeout(verifyUser, 5 * 60 * 1000)
       })
   },[setUserContext])
 
@@ -79,7 +77,7 @@ const ProtectedLogin = ({auth,component:Component, ...rest}) =>{
   return(
     <Route 
     {...rest} 
-      render ={()=> !auth.token ? (
+      render ={()=> auth.token === null ? (
         <Component />
         ):auth.token?
         (
@@ -99,7 +97,7 @@ const ProtectedRoute = ({auth,component:Component, ...rest}) =>{
     {...rest} 
       render ={()=> auth.token? (
         <Component />
-        ): !auth.token ?
+        ): auth.token === null ?
         (
           <Redirect to ="/SignIn" />
         ):(

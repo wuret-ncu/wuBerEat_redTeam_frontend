@@ -30,33 +30,13 @@ export default function SignIn() {
             setUserContext( prevData => {
                 return{...prevData, token : data.token}
             })
-            setpending(false);    
+             
         })
         .catch(err=>{
             setpending(false);
             console.log(err);
         })
-        // var data ={
-        //     "username": "3@3",
-        //     "password": "test"
-        //   }
-          
-        //   var config = {
-        //     method: 'post',
-        //     url: 'http://localhost:80/users/login2',
-        //     headers: { 
-        //       'Content-Type': 'application/json'
-        //     },
-        //     data : data
-        //   };
-          
-        //   axios(config)
-        //   .then(function (response) {
-        //     console.log(JSON.stringify(response.data));
-        //   })
-        //   .catch(function (error) {
-        //     console.log(error);
-        //   });
+        
     }
 
     return (  
