@@ -9,10 +9,9 @@ const userRequest = axios.create({
     headers:{"Content-Type":"application/json"},
 });
 
-// Content 相關的 api
-const contentRequest = axios.create({
-    // 測試用 https://jsonplaceholder.typicode.com
-    baseURL:"https://jsonplaceholder.typicode.com",
+// 顯示餐廳內容 相關的 api
+const restaurantRequest = axios.create({
+    baseURL:"http://localhost:80/dashboard",
     headers:{"Content-Type":"application/json"},
 });
 
@@ -20,10 +19,10 @@ const contentRequest = axios.create({
 const upLoadmenu = axios.create({
     // 測試用 https://v2.convertapi.com
     baseURL:"http://localhost:80/dashboard",
-    headers:{'Content-Type':'multipart/form-data'}
+    headers:{"Content-Type":"application/json"}
 });
 
-//Cart相關的 api
+//Cart 相關的 api
 const cartRequest = axios.create({ 
   baseURL:"https://jsonplaceholder.typicode.com",
   headers:{"Content-Type":"application/json"},
@@ -70,11 +69,17 @@ upLoadmenu.interceptors.request.use(
 export const apiUserLogin = (data) => userRequest.post('/login2',data);
 export const apiUserLogout = (config) => userRequest.get('/logout2',config);
 export const apiUserRegister = (data) => userRequest.post('/signup',data);
+
+//refreshToken 驗證 相關的 api
 export const apiUserRefreshToken = () =>userRequest.post('/refreshToken');
+
+//使用者資料 相關的 api
 export const apiUserDetailsRequest = (config) => userRequest.get('/me',config);
 
-// Content 相關的 api
-export const apiContentItem = () => contentRequest.get('albums/1/photos');
+//餐廳內容 相關的 api
+export const apiContentItem = () => restaurantRequest.get('/restaurants');
+//編輯 刪除 餐廳資訊
+export const apiContentItemDelete = (id) => restaurantRequest.delete('/',id)
 
 //餐廳資訊上傳 相關的 api
 export const apiUpLoadmenu = (data) => upLoadmenu.post('/createMenu',data);

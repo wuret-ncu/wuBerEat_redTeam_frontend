@@ -1,12 +1,22 @@
 import React from 'react';
 import './Navbar.css';
 import { useState, useEffect, useContext} from 'react';
-import { AuthContext } from '../global/AuthContextapi';
+import { AuthContext } from '../global/AuthContext';
 import { apiUserLogout} from '../global/api';
+import { CartContext } from '../global/CartContext';
 
 export default function Navbar() {
     const [moveNav, setmoveNav] = useState(0)
     const [userContext, setUserContext] = useContext(AuthContext)
+    
+    //Cart count
+    const [cartItems] = useContext(CartContext)
+    //Loop through the items and find the total count
+    const totalCount = cartItems.reduce(
+        //之前的值 + 現在處理的元素 => 舊值 + 新值 ， 0 是設定初始值
+        (prevValue, currentValue) => prevValue + currentValue.count,
+        0
+    )
 
     //Logout
     const handlerLogout = () => {
@@ -48,13 +58,16 @@ export default function Navbar() {
                 <div className="collapse navbar-collapse " id="navbarNav">
                     <ul className="navbar-nav ms-auto">
                         <li className="nav-item">
-                            <a className="nav-link active" aria-current="page" href="/#">Home</a>
+                            <a className="nav-link active" aria-current="page" href="/Homepage">Home</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/Edit"><i className="far fa-user"></i> </a>
+                            <a className="nav-link" href="/Edit"><i className="far fa-user"></i></a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/#"><i className="fas fa-shopping-cart"></i> </a>
+                            <a className="nav-link" href="/#">
+                                <i className="fas fa-shopping-cart"></i> 
+                                {totalCount > 0 && <span className="cart_count">{totalCount}</span>}
+                            </a>
                         </li>
                         <li className="nav-item">
                             <span className="nav-link" onClick={handlerLogout}>Logout</span>

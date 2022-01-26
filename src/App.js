@@ -4,8 +4,8 @@ import SignUp from './pages/SignInUp/SignUp';
 import Homepage from './pages/Home/Homepage';
 import Cart from './pages/Cart/Cart'
 import Record from './pages/Record/Record'
-import Edit from './pages/EditMenu/Edit';
-import Loader from './pages/Loader';
+import Editpage from './pages/EditMenu/Editpage';
+import Loader from './components/Loader';
 import {
   BrowserRouter as Router,
   Switch,
@@ -13,12 +13,14 @@ import {
   Redirect
 } from 'react-router-dom';
 import {useEffect, useContext, useCallback } from 'react';
-import { AuthContext } from './global/AuthContextapi';
+import { AuthContext } from './global/AuthContext';
 import { apiUserRefreshToken } from './global/api';
 
 function App() {
   const[userContext, setUserContext] = useContext(AuthContext);
-    //useCallback to avoid re-declaration when component re-renders
+    //useCallback 避免 Component re-render 時重新宣告，
+    //verifyUser() 放在 useEffect  的依賴值裡，function 在 JS 裡視為物件，物件或是陣列等
+    //是看記憶體位址，基本上都會視為不相同，因此會一直重新宣告verifyUser()
     const verifyUser = useCallback(()=>{
       //RefreshToken API
       apiUserRefreshToken()
@@ -56,19 +58,17 @@ function App() {
     }
   },[synclogout])
 
-  return (
-    <>     
-      <Router>
-        <Switch>
-          <ProtectedLogin path="/SignIn" auth={userContext} component={SignIn} />
-          <ProtectedLogin path="/SignUp" auth={userContext} component={SignUp} />
-          <ProtectedRoute path="/Homepage" auth={userContext} component={Homepage} />
-          <ProtectedRoute path="/Cart" auth={userContext} component={Cart} />
-          <ProtectedRoute path="/Record" auth={userContext} component={Record} />
-          <ProtectedRoute path="/Edit" auth={userContext} component={Edit} />
-        </Switch>
-      </Router>
-    </>
+  return (    
+    <Router>
+      <Switch>
+        <ProtectedLogin path="/SignIn" auth={userContext} component={SignIn} />
+        <ProtectedLogin path="/SignUp" auth={userContext} component={SignUp} />
+        <ProtectedRoute path="/Homepage" auth={userContext} component={Homepage} />
+        <ProtectedRoute path="/Cart" auth={userContext} component={Cart} />
+        <ProtectedRoute path="/Record" auth={userContext} component={Record} />
+        <ProtectedRoute path="/Edit" auth={userContext} component={Editpage} />
+      </Switch>
+    </Router>
   );
 }
 

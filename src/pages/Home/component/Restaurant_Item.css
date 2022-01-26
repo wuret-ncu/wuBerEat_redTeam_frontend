@@ -1,0 +1,43 @@
+.card-custom {
+  overflow: hidden;
+  height: 400px;
+  box-shadow: 0 0 15px rgba(10, 10, 10, 0.3);
+}
+
+.card-custom-img {
+  height: 200px;
+  min-height: 200px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  border-color: inherit;
+}
+
+.card-custom-edit {
+  cursor: pointer;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color:rgb(121, 118, 118);
+  background-color: rgba(255, 255, 255);
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+.card-custom-edit :hover{ 
+  transform: translateY(-5px);
+  transition: all 0.3s;
+  color: rgba(0, 0, 0);
+}
+
+.card-custom-edit i{
+  position: absolute;
+  top: 3px;
+  right: 0px;
+  font-size: 23px;
+}
+.aos-fix[data-aos] {
+  pointer-events: none;
+}

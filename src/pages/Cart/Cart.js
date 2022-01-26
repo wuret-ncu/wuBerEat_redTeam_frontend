@@ -7,7 +7,7 @@ import './Cart.css';
 
 export default function Cart() {
     return (
-        <div>
+        <>
             <Navbar />
             <div className="container cartkv">
                 <div className="row">
@@ -32,6 +32,6 @@ export default function Cart() {
                     </div>
                 </div>
             </div>
-        </div>    
+        </>    
     )
 }

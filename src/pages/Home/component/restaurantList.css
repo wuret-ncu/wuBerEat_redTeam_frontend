@@ -1,0 +1,29 @@
+.sort-text{
+    border: 2px solid;
+    border-color: transparent;
+    background-color: transparent;
+    
+}
+.sort-option{
+    text-align: start;
+    font-size: 20px;
+    transition: all 0.3s;
+}
+.sort-option :hover{
+    border-bottom: 2px solid;
+    color: rgb(71, 54, 197);
+}
+.sort-option :focus{
+    border-bottom: 2px solid;
+    border-bottom-color: rgb(71, 54, 197);
+}
+.sort-icon{
+    position: relative;
+    right: -5px;
+    top: 5px;
+}
+.sort-icon2{
+    position: relative;
+    right: -5px;
+    top: -2px;
+}

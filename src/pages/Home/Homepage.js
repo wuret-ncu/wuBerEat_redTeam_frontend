@@ -1,15 +1,20 @@
 import React from 'react';
 import Navbar from '../../components/Navbar';
 import Header from '../../components/Header';
-import Content from './component/Content';
+import RestaurantList from './component/RestaurantList';
+import DishList from './component/DishList';
 import Footer from '../../components/Footer'; 
-import Loader from '../Loader';
-import { AuthContext } from '../../global/AuthContextapi';
-import {useCallback, useContext, useEffect } from 'react';
+import Loader from '../../components/Loader';
+import { AuthContext } from '../../global/AuthContext';
+import {useCallback, useContext, useEffect,useState} from 'react';
 import { apiUserDetailsRequest } from '../../global/api';
 
 export default function Homepage() {
-    const[userContext, setUserContext] = useContext(AuthContext)
+    const [userContext, setUserContext] = useContext(AuthContext)
+    const [searchValue,setSearchValue] = useState("")
+    const [searching,setSearching] = useState(false)
+    const [dishShow,setDishShow] = useState(false)
+    const [dishData,setDishData] = useState(null)
 
     const fetchUserDetails = useCallback(()=>{
         apiUserDetailsRequest({
@@ -18,7 +23,7 @@ export default function Homepage() {
         })
         .then(async response =>{
             if(response.statusText === 'OK'){
-                console.log(response);
+                //console.log(response);
                 const data = await response.data
                 setUserContext( prevData =>{
                     return{...prevData, details : data}
@@ -46,12 +51,28 @@ export default function Homepage() {
     ) : !userContext.details ?(
         <Loader />
     ):(
-        <div>
+        <>
             <Navbar /> 
-            <Header />
-            <Content />
+            <Header 
+                setSearchValue={setSearchValue} 
+                setSearching={setSearching} 
+            />
+            {
+                !dishShow?(
+                <RestaurantList 
+                    searchValue={searchValue} 
+                    searching={searching} 
+                    setSearching={setSearching} 
+                    setDishShow={setDishShow}
+                    setDishData={setDishData}
+                />
+                ):(
+                    <DishList dishData={dishData}/>
+                )
+            }
+            
             <Footer />
-        </div>   
+        </>   
     )
     
 }

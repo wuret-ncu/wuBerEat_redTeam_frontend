@@ -2,7 +2,7 @@ import React from 'react';
 import './SignIn.css';
 import {Link} from 'react-router-dom';
 import { useState, useContext } from 'react';
-import { AuthContext } from '../../global/AuthContextapi';
+import { AuthContext } from '../../global/AuthContext';
 import { apiUserRegister } from '../../global/api';
 
 export default function SignIn() { 
@@ -50,40 +50,47 @@ export default function SignIn() {
                         </div>
                         <hr className="hr"/> 
                             <div>
-                                <label htmlFor="Username" className="form-label">Username</label>
+                                <label htmlFor="username" className="form-label">Username</label>
                                 <input 
                                     type="email" 
-                                    name="Username" 
+                                    name="username" 
+                                    id="username"
                                     className="form-control"  
                                     placeholder="UserName"  
                                     onChange={handleChange}
+                                    required
                                 />                       
                             </div>
                             <div>
-                                <label htmlFor="Password" className="form-label">Password</label>
+                                <label htmlFor="password" className="form-label">Password</label>
                                 <input 
-                                    type="text" 
-                                    name="Password" 
+                                    type="password" 
+                                    name="password" 
+                                    id="password"
                                     className="form-control"  
                                     placeholder="password"  
                                     onChange={handleChange}
+                                    required
                                 />                       
                             </div>
                             <div>
-                                <label htmlFor="FirstName" className="form-label">FirstName</label>
+                                <label htmlFor="firstName" className="form-label">FirstName</label>
                                 <input 
                                     type="text" 
-                                    name="FirstName" 
+                                    name="firstName"
+                                    id="firstName" 
                                     className="form-control"  
                                     placeholder="fristname"  
                                     onChange={handleChange}
+                                    required
                                 />                       
                             </div>
                             <div>
-                                <label htmlFor="LastName" className="form-label">LastName</label>
+                                <label htmlFor="lastName" className="form-label">LastName</label>
                                 <input 
                                     type="text" 
-                                    name="LastName" 
+                                    name="lastName"
+                                    id="lastName"
                                     className="form-control"  
                                     placeholder="lastname"  
                                     onChange={handleChange}

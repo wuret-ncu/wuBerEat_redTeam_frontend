@@ -3,10 +3,10 @@
     height: 100vh;
     background-color: rgb(255, 255, 255);
     background: 
-        linear-gradient(95deg, rgb(59,52,105) 60%, 
+        linear-gradient(95deg, rgb(59, 52, 106) 60%, 
         transparent 60%)center center/100% 100%,
         /* url("https://picsum.photos/1200/600?random=10") right center /auto 100%, 假圖*/
-        rgb(255,186,51)    
+        rgb(255, 186, 51)    
 }
 .SignIncontext{
     position: absolute;
@@ -53,9 +53,6 @@
     border-radius: 15px;
     text-align: left;
     background-color: rgba(255, 254, 254,0.5);
-}
-input{
-    margin: 5px 0px;
 }
 .button{
     margin: 10px 0px;

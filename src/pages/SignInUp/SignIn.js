@@ -2,7 +2,7 @@ import React from 'react';
 import './SignIn.css';
 import {Link} from 'react-router-dom';
 import { useState, useContext} from 'react';
-import { AuthContext } from '../../global/AuthContextapi';
+import { AuthContext } from '../../global/AuthContext';
 import { apiUserLogin } from '../../global/api';
 
 export default function SignIn() { 
