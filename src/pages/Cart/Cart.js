@@ -3,9 +3,43 @@ import Navbar from '../../components/Navbar';
 import CartItem from './component/Cart_Item';
 import {Link} from 'react-router-dom';
 import './Cart.css';
-// import { useState, useEffect } from 'react'; 
-
+import { useState, useEffect } from 'react'; 
+import { apiCartRecord,apiCreatCart } from '../../global/api';
 export default function Cart() {
+    const[cartData,setCartData]= useState({
+        userId:"61a49c568a5e56e5e18db848",
+        history:[
+            {
+                restaurantName:"全家",
+                dish:[
+                    {dishName:"咖哩",price:"70"},
+                    {dishName:"義大利麵",price:"80"}
+                ]
+            
+            }
+        ]
+    })
+
+    // useEffect(() => {
+    //     apiCreatCart(cartData)
+    //     .then(res=>{
+    //         console.log(res);
+    //     })
+    //     .catch(err=>{
+    //         console.log(err);
+    //     })
+    // }, [])
+
+    useEffect(()=>{
+        apiCartRecord("6176766141655772211a103a")
+        .then(res=>{
+            console.log(res);
+            console.log(decodeURI(document.cookie.split('%2C')));
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+    },[])
     return (
         <>
             <Navbar />

@@ -1,12 +1,10 @@
 import React from 'react'
 import './Restaurant_Item.css'
 import EditWindow from '../../../components/EditWindow';
-import { useState, useEffect, useContext } from 'react';
-import {CartContext} from '../../../global/CartContext'
+import { useState, useEffect} from 'react';
 import { apiContentItemDelete } from '../../../global/api';
 
 export default function Restaurant_Item({cardImgSrc,cardTitle, cardContent,id,setRestaurantId}) {
-    const [cartContext,setCartContext] = useContext(CartContext)
     const [modalshow,setmodalshow] = useState(false)
     
     //刪除
@@ -26,38 +24,8 @@ export default function Restaurant_Item({cardImgSrc,cardTitle, cardContent,id,se
     }
 
     //加入購物車 => DishList
-    const addToCart = () => {
+    const moreMenu = () => {
         setRestaurantId(id)
-        // setCartContext(oldValues => {
-        //   const productIndex = oldValues.findIndex(
-        //     val => val.cardTitle === cardTitle
-        //   )
-        //   let updatedCartItems = []
-        //   //如果 item 已經在 Cart 裡面的話
-        //   if (productIndex !== -1) {
-        //     updatedCartItems = [
-        //       //在陣列裡面該 item 前面的物件
-        //         ...oldValues.slice(0, productIndex),
-        //       //在陣列裡面同樣的那個 item 數量+1
-        //         {
-        //           cardTitle,
-        //           count: oldValues[productIndex].count + 1,
-        //         },
-        //       //在陣列裡該 item 後面的物件
-        //         ...oldValues.slice(productIndex + 1),
-        //       ]
-        //   } else {
-        //     //item 原本沒在 Cart 裡面 ，保留其他舊的物件， 新增 item 進去
-        //     updatedCartItems = [...oldValues, { cardTitle, count: 1 }]
-        //   }
-        //   //把購物車資料放在 localstorage 裡面
-        //   try {
-        //     window.localStorage.setItem("cartItems", JSON.stringify(updatedCartItems))
-        //   } catch (e) {
-        //     console.error("Error in storing cart items in local storage")
-        //   }
-        //   return updatedCartItems
-        // })
       }
       
     //AOS
@@ -81,8 +49,8 @@ export default function Restaurant_Item({cardImgSrc,cardTitle, cardContent,id,se
                       <div className='row'>
                           {cardContent.map(item =>{
                             return(
-                              <div className="alert alert-primary col-6 px-auto h-auto" role="alert" >
-                              {item}
+                              <div className="col" role="alert" >
+                              <h5>#{item}</h5>
                             </div> 
                             );
                           })}
@@ -90,7 +58,7 @@ export default function Restaurant_Item({cardImgSrc,cardTitle, cardContent,id,se
                     </div>
                 </div>
                 <div className="card-footer px-1" style={{background:"inherit",borderColor:"inherit"}}>
-                    <button type="button" className="btn btn-outline-primary me-2" onClick={addToCart}>More...</button>
+                    <button type="button" className="btn btn-outline-primary me-2" onClick={moreMenu}>More...</button>
                     <button type="button" className="btn btn-outline-danger" onClick={deleteMenu}><i className="fas fa-trash-alt"></i></button>
                 </div>
             </div>

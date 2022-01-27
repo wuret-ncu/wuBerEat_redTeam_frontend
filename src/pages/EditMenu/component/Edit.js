@@ -22,7 +22,6 @@ export default function Edit({name,title}) {
         })
         .then(async response =>{
             if(response.statusText === 'OK'){
-                console.log(response);
                 const data = await response.data
                 setUserContext( prevData =>{
                     return{...prevData, details : data}
@@ -99,8 +98,7 @@ export default function Edit({name,title}) {
             dish:[
                 ...menuData.dish,
                 {
-                    dishName:dish,
-                    price:price
+                    [dish]:price
                 }
             ]
         }))

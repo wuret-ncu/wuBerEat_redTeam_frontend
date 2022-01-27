@@ -64,8 +64,13 @@ export default function Navbar() {
                             <a className="nav-link" href="/Edit"><i className="far fa-user"></i></a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/#">
-                                <i className="fas fa-shopping-cart"></i> 
+                            <a className="nav-link" href="/Record">
+                                <i className="far fa-file-alt"></i>
+                            </a>
+                        </li>
+                        <li className="nav-item">
+                            <a className="nav-link" href="/Cart">
+                                <i className="far fa-shopping-cart"></i> 
                                 {totalCount > 0 && <span className="cart_count">{totalCount}</span>}
                             </a>
                         </li>
