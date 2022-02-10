@@ -3,13 +3,13 @@ import axios from "axios";
 //跨域請求時能正常發出附帶cookie的header
 axios.defaults.withCredentials = true; 
 
-//User 相關的 api       
+//users     
 const userRequest = axios.create({
     baseURL:'http://localhost:80/users',
     headers:{"Content-Type":"application/json"},
 });
 
-//record 相關的 api
+//dashboard
 const dashboardRequest = axios.create({ 
   baseURL:"http://localhost:80/dashboard",
   headers:{"Content-Type":"application/json"},
@@ -76,4 +76,7 @@ export const apiCreatCart = (data) => dashboardRequest.post('/carts',data)
 
 //訂單紀錄 相關的 api
 export const apiUserRecord = (userid) => dashboardRequest.get(`/orderRecord/${userid}`)
+export const apiOrderDish = (data) => dashboardRequest.post('/orderRecord',data)
 
+//搜尋 相關的 api
+export const apiSearch = (config) => dashboardRequest.get('/search',config)

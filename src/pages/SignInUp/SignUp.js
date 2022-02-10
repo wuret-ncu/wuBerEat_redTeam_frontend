@@ -50,13 +50,13 @@ export default function SignIn() {
                         </div>
                         <hr className="hr"/> 
                             <div>
-                                <label htmlFor="username" className="form-label">Username</label>
+                                <label htmlFor="username" className="form-label">Account</label>
                                 <input 
                                     type="email" 
                                     name="username" 
                                     id="username"
                                     className="form-control"  
-                                    placeholder="UserName"  
+                                    placeholder="Account"  
                                     onChange={handleChange}
                                     required
                                 />                       

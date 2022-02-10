@@ -6,7 +6,7 @@
 }
 .sort-option{
     text-align: start;
-    font-size: 20px;
+    font-size: 18px;
     transition: all 0.3s;
 }
 .sort-option :hover{

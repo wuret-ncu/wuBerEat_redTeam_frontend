@@ -2,7 +2,7 @@ import React from 'react'
 import Restaurant_Item from './Restaurant_Item';
 import './restaurantList.css'
 import {useState,useEffect, useMemo } from 'react';
-import { apiContentItem } from '../../../global/api';
+import { apiContentItem, apiSearch } from '../../../global/api';
 
 export default function RestaurantList({searchValue, searching, setSearching,setDishShow,setDishData}) {
     const[contentItem,setContentItem] = useState([])
@@ -14,7 +14,6 @@ export default function RestaurantList({searchValue, searching, setSearching,set
         apiContentItem()
         .then(res=>{
             setContentItem(res.data);
-            console.log(res.data);
         })
         .catch(err=>{
             console.log(err);
@@ -24,8 +23,9 @@ export default function RestaurantList({searchValue, searching, setSearching,set
     //搜尋後重發request
     useEffect(()=>{
         if(searching === true){
-            apiContentItem(searchValue)
+            apiSearch({params:searchValue})
             .then(res=>{
+                console.log(res);
                 setContentItem(res.data);
             })
             .catch(err=>{
@@ -93,7 +93,7 @@ export default function RestaurantList({searchValue, searching, setSearching,set
                 <div className='row justify-content-start'>
                     <div className='col col-md-3 sort-option' >
                         <button type="button" className="sort-text" onClick={()=> handleSortConfig("popular")}>
-                            popular
+                            Popular
                             {toogleType !== "popular" && <i className="fas fa-sort-up sort-icon" ></i>}
                             {toogleType === "popular" && <i className="fas fa-sort-down sort-icon2"></i>}
                         </button>

@@ -7,14 +7,15 @@ import Footer from '../../components/Footer';
 import Loader from '../../components/Loader';
 import { AuthContext } from '../../global/AuthContext';
 import {useCallback, useContext, useEffect,useState} from 'react';
-import { apiUserDetailsRequest } from '../../global/api';
+import { apiUserDetailsRequest,apiCartRecord } from '../../global/api';
 
 export default function Homepage() {
     const [userContext, setUserContext] = useContext(AuthContext)
-    const [searchValue,setSearchValue] = useState("")
+    const [searchValue,setSearchValue] = useState({})
     const [searching,setSearching] = useState(false)
     const [dishShow,setDishShow] = useState(false)
     const [dishData,setDishData] = useState(null)
+    
 
     const fetchUserDetails = useCallback(()=>{
         apiUserDetailsRequest({
@@ -46,6 +47,8 @@ export default function Homepage() {
         }
     },[userContext.details, fetchUserDetails])
     
+    
+
     return  userContext.details === null?(
         "Error Loading"
     ) : !userContext.details ?(

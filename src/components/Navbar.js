@@ -61,7 +61,7 @@ export default function Navbar() {
                             <a className="nav-link active" aria-current="page" href="/Homepage">Home</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link" href="/Edit"><i className="far fa-user"></i></a>
+                            <a className="nav-link" href="/Edit"><i className="far fa-cloud-upload"></i></a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link" href="/Record">

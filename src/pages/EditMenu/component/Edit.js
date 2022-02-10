@@ -1,4 +1,5 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 import { useState, useContext, useCallback, useEffect} from 'react'
 import { AuthContext } from '../../../global/AuthContext'
 import { apiUpLoadmenu, apiUserDetailsRequest  } from '../../../global/api'
@@ -13,6 +14,7 @@ export default function Edit({name,title}) {
     const[price,setPrice] = useState("")
     const[menuImgUrl, setmenuImgUrl] = useState("") 
     const[userContext, setUserContext] = useContext(AuthContext)
+    const history = useHistory()
     
     //表單需要user資料
     const fetchUserDetails = useCallback(()=>{
@@ -152,52 +154,52 @@ export default function Edit({name,title}) {
         }).catch(err=>{
             console.log(err);
         })
+
+        history.push('/Homepage')
     }
 
     return (
         <>
-            <div className="container">
+            <div className="container" style={{marginTop:80}}>
                 <div className="d-flex justify-content-center">
                     <h5>{title}</h5>
                 </div>
                 <div className="row justify-content-center">
                     <form className ="form col-md-8 col-12" onSubmit={handleSubmit}>   
-                        <div>
+                        <div className='mb-3'>
                             <label className="form-label">餐廳名稱</label>
                             <input type="text" name="restaurantName" className="form-control"  placeholder="..." required onChange={handleChange}/>                        
                         </div>
-                        <div>
+                        <div className='mb-3'>
                             <label htmlFor="menuFile" className="form-label">餐廳菜單</label>
                             <input className="form-control" name="menu" type="file" id="menuFile" required onChange={handleImgChange} />
-                            <div style={{textAlign:'center'}}>
-                                <img className="my-1" src={menuImgUrl} alt={menuImg} width={"100%"}/>
+                            <div className='mx-3 my-3' style={{textAlign:'center'}}>
+                                <img  src={menuImgUrl} alt={menuImg} width={"100%"}/>
                             </div>
                         </div>
-                        <label className="form-label">餐廳標籤</label>
+                        <label className="form-label mb-2">餐廳標籤</label>
                         <div className="input-group mb-3">
                             <input type="text" name="type" className="form-control" placeholder="..." onChange={handleTypeChange}/>
                             <button className="btn btn-outline-secondary" type="button" onClick={handleTypeClick}><i className="fas fa-plus"></i></button>
                         </div>
                         <div>
-                            <div className='row'>
-                                {/* {menuData.type.map(item =>  
-                                <div className="alert alert-primary col m-2" role="alert">
-                                    {item}
-                                </div>   
-                                )} */}
+                            <div className='col mb-3'>
+                                {menuData.type.map(item =>  
+                                    <span style={{color:'rgb(80, 67, 161)'}}>&nbsp;#&nbsp;{item}</span> 
+                                )}
                             </div> 
                         </div>
                         
-                        <div>
+                        <div className='mb-3'>
                             <label className="form-label">餐廳電話</label>
                             <input type="text" name="restaurantPhone" className="form-control" placeholder="..." onChange={handleChange}/>
                         </div>
-                        <div>
+                        <div className='mb-3'>
                             <label className="form-label">餐廳地址</label>
                             <input type="text" name="restaurantLocation" className="form-control" placeholder="..." onChange={handleChange}/>
                         </div>
                             <label className="form-label">餐廳營業時間</label>
-                            <div className="input-group">
+                            <div className="input-group mb-3">
                                 <span className="input-group-text" id="inputGroupSelect">日期</span>
                                 <select className="form-select" id="inputGroupSelect01" onChange={handleDateChange}>
                                     <option value="Mon">星期一</option>
@@ -212,8 +214,31 @@ export default function Edit({name,title}) {
                                 <input type="text" name="serviceHour" className="form-control" placeholder="..." onChange={handleTimeChange}/>
                                 <button className="btn btn-outline-secondary" type="button" onClick={handleServiceHourClick}><i className="fas fa-plus"></i></button>
                             </div>
+                            {
+                                 Object.entries(menuData.serviceHour).map(([key,value]) => {
+                                    return (
+                                        <div className='row' key={key}>
+                                            <div className='col-1'>
+                                                <span className='mt-1' key={key}>
+                                                    {Object.keys(value)}
+                                                </span>
+                                            </div>
+                                            <div className='col-1'>
+                                                <span className='mt-1' key={key}>
+                                                    :
+                                                </span>
+                                            </div>
+                                            <div className='col-1'>
+                                                <span className='mt-1' key={key}>
+                                                    {Object.values(value)}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    );
+                                })
+                            }
                         
-                        <div>
+                        <div className='mt-3 mb-3'>
                             <label className="form-label">餐廳餐點</label>
                             <div className="input-group">
                                 <span className="input-group-text" id="inputGroupSelect" >餐點</span>
@@ -223,7 +248,31 @@ export default function Edit({name,title}) {
                                 <button className="btn btn-outline-secondary" type="button" onClick={handleDishClick}><i className="fas fa-plus"></i></button>
                             </div>
                         </div>
-                       <button type="submit" className="btn btn-outline-warning w-100 mt-3">{name}</button>
+                        {
+                                 Object.entries(menuData.dish).map(([key,value]) => {
+                                    return (
+                                        <div className='row' key={key}>
+                                            <div className='col-1'>
+                                                <span className='mt-1' key={key}>
+                                                    {Object.keys(value)}
+                                                </span>
+                                            </div>
+                                            <div className='col-1'>
+                                                <span className='mt-1' key={key}>
+                                                    :
+                                                </span>
+                                            </div>
+                                            <div className='col-1'>
+                                                <span className='mt-1' key={key}>
+                                                    {Object.values(value)}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    );
+                                })
+                            }
+                        
+                       <button type="submit" className="btn btn-outline-warning w-100 mt-4">{name}</button>
                     </form>
                 </div>
             </div>

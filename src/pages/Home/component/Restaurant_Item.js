@@ -49,9 +49,9 @@ export default function Restaurant_Item({cardImgSrc,cardTitle, cardContent,id,se
                       <div className='row'>
                           {cardContent.map(item =>{
                             return(
-                              <div className="col" role="alert" >
-                              <h5>#{item}</h5>
-                            </div> 
+                              <div className="col-12" role="alert" >
+                                <h5 style={{color:'rgb(80, 67, 161)'}}>#{item}</h5>
+                              </div> 
                             );
                           })}
                       </div> 
@@ -63,7 +63,6 @@ export default function Restaurant_Item({cardImgSrc,cardTitle, cardContent,id,se
                 </div>
             </div>
             {modalshow && <EditWindow hide={setmodalshow}/>}
-            
         </div>
            
     )

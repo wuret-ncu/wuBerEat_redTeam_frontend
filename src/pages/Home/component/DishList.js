@@ -11,7 +11,6 @@ export default function DishList({dishData}) {
     const markerRef = useRef(null); 
     const circleRef = useRef(null); 
     const [cartContext,setCartContext] = useContext(CartContext) //cart
-    const [orderDish,setOrderDish] = useState()
 
     const handleFlyTo = () =>{
         mapRef.current.flyTo(markerPosition, 15, {
@@ -63,13 +62,13 @@ export default function DishList({dishData}) {
     },[markerPosition])
 
     //餐點列表
-    const DishItem = ({key,dishName,price}) =>{
+    const DishItem = ({key,restaurantName,dishName,price}) =>{
         //加入購物車 
         const addCart=()=>{
-            const orederName = dishName[0]
+            const orderName = dishName[0]
             setCartContext(oldValues => {
               const productIndex = oldValues.findIndex(
-                val => val.orederName === orederName
+                val => val.orderName === orderName
               )
               let updatedCartItems = []
               //如果 item 已經在 Cart 裡面的話
@@ -79,7 +78,7 @@ export default function DishList({dishData}) {
                     ...oldValues.slice(0, productIndex),
                   //在陣列裡面同樣的那個 item 數量+1
                     {
-                        orederName,
+                        orderName,
                         count: oldValues[productIndex].count + 1,
                     },
                   //在陣列裡該 item 後面的物件
@@ -87,34 +86,33 @@ export default function DishList({dishData}) {
                   ]
               } else {
                 //item 原本沒在 Cart 裡面 ，保留其他舊的物件， 新增 item 進去
-                updatedCartItems = [...oldValues, { orederName, count: 1 }]
+                updatedCartItems = [...oldValues, { orderName, count: 1 }]
               }
+
               //把購物車資料放在 localstorage 裡面
-            //   try {
-            //     window.localStorage.setItem("cartItems", JSON.stringify(updatedCartItems))
-            //   } catch (e) {
-            //     console.error("Error in storing cart items in local storage")
-            //   }
+              try {
+                window.localStorage.setItem("cartItems", JSON.stringify(updatedCartItems))
+                window.localStorage.setItem("restaurantName", restaurantName)
+              } catch (e) {
+                console.error("Error in storing cart items in local storage")
+              }
               return updatedCartItems
             })
         }
 
         return(
             <>
-            <div className="row g-0 align-items-center mb-3" key={key}>
-                    
+            <div className="row g-0 justify-content-center align-items-center mb-3" key={key}>
                     <div className="col-3 me-4">
                         <img src="https://picsum.photos/1200/600?random=10" className="rounded-start cart_item_img " alt="..." />
                     </div>
-                    <div className="col-3" >                                   
-                        <div className="col-12 mx-3">
-                            <h4>{dishName}</h4>
-                        </div>
+                    <div className="col-3 cost_item" >                                   
+                        <h5>{dishName}</h5>
                     </div>
-                    <div className="col-2 cost_item text-end" >
+                    <div className="col-2 cost_item" >
                         <h5>${price}</h5>   
                     </div>
-                    <div className="col-3 cost_item text-end" >
+                    <div className="col-3 cost_item" >
                         <button type="button" className="btn btn-outline-primary me-2" onClick={addCart}>addCart</button>
                     </div>
                 </div>
@@ -189,13 +187,15 @@ export default function DishList({dishData}) {
         <div className="container mb-4">
             <div className="row">
                 <div className="col-12">
+                    <h4 className='mb-2'><i className="fas fa-utensils"></i>&nbsp;餐點</h4>
                 {   
                     Object.entries(dishData[0].dish).map(([key,value]) => {
+                        const restaurantName = dishData[0].restaurantName
                         const dishName = Object.keys(value)
                         const price = Object.values(value)
                         return (
                             <>
-                                <DishItem key={key} dishName={dishName} price={price}/>
+                                <DishItem key={key} restaurantName={restaurantName} dishName={dishName} price={price}/>
                             </>
                         );
                     })
