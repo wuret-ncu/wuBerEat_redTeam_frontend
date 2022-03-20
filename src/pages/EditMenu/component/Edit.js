@@ -2,9 +2,9 @@ import React from 'react'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 import { useState, useContext, useCallback, useEffect} from 'react'
 import { AuthContext } from '../../../global/AuthContext'
-import { apiUpLoadmenu, apiUserDetailsRequest  } from '../../../global/api'
+import { apiUpLoadmenu, apiUserDetailsRequest,apiContentItemEdit} from '../../../global/api'
 
-export default function Edit({name,title}) {
+export default function Edit({name,title,editRestaurantId}) {
     const[menuData, setMenuData] = useState({type:[],dish:[],serviceHour:[]})
     const[menuImg, setMenuImg] = useState(null)
     const[typeInput, setTypeinput] = useState("")
@@ -147,13 +147,23 @@ export default function Edit({name,title}) {
         //append user ID
         formData.append('userId',userContext.details._id);
 
-        //上傳菜單API
-        apiUpLoadmenu(formData)
-        .then(response =>{
-            console.log(response);
-        }).catch(err=>{
-            console.log(err);
-        })
+        //上傳菜單 or 編輯菜單
+        if(name === "Edit"){
+            apiContentItemEdit(editRestaurantId,formData)
+            .then(response =>{
+                console.log(response);
+            }).catch(err =>{
+                console.log(err);
+            })
+        }else {
+            
+            apiUpLoadmenu(formData)
+            .then(response =>{
+                console.log(response);
+            }).catch(err=>{
+                console.log(err);
+            })
+        }
 
         history.push('/Homepage')
     }

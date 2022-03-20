@@ -37,13 +37,13 @@ export default function Record() {
         if(userId !== ""){
         apiUserRecord(userId)
         .then(res=>{
-            console.log(res);
-            console.log(userId);
-            setrecordData(res.data.history)
+            setrecordData(res.data.history[0]);
         })
         .catch(err=>{
             console.log(err);
         })
+        }else{
+           return
         }
     },[userId])
     return (

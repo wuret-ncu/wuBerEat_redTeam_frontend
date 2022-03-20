@@ -8,15 +8,18 @@ import { CartContext } from '../global/CartContext';
 export default function Navbar() {
     const [moveNav, setmoveNav] = useState(0)
     const [userContext, setUserContext] = useContext(AuthContext)
-    
+    const [totalCount,setTotalCount] = useState(0)
     //Cart count
     const [cartItems] = useContext(CartContext)
+    useEffect(()=>{
     //Loop through the items and find the total count
-    const totalCount = cartItems.reduce(
+    setTotalCount(cartItems.reduce(
         //之前的值 + 現在處理的元素 => 舊值 + 新值 ， 0 是設定初始值
         (prevValue, currentValue) => prevValue + currentValue.count,
         0
-    )
+    ))
+    },[cartItems])
+    
 
     //Logout
     const handlerLogout = () => {
@@ -27,6 +30,7 @@ export default function Navbar() {
                 return{...prev, datails:undefined , token:null}
             })
             window.localStorage.setItem("logout",Date.now())
+            window.localStorage.removeItem("cartItems")
         })
     }
 

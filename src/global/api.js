@@ -5,18 +5,18 @@ axios.defaults.withCredentials = true;
 
 //users     
 const userRequest = axios.create({
-    baseURL:'http://localhost:80/users',
+    baseURL:'http://140.115.126.95:80/users',
     headers:{"Content-Type":"application/json"},
 });
 
 //dashboard
 const dashboardRequest = axios.create({ 
-  baseURL:"http://localhost:80/dashboard",
+  baseURL:"http://140.115.126.95:80/dashboard",
   headers:{"Content-Type":"application/json"},
 });
 
 //User interceptors 
-dashboardRequest.interceptors.request.use(
+userRequest.interceptors.request.use(
   config => { 
       console.log(config);
       return config;
@@ -52,31 +52,47 @@ error => {
     return Promise.reject(error);        
 });
 
-//User登入註冊 相關的 api   
+//User 相關的 api   
+//登入
 export const apiUserLogin = (data) => userRequest.post('/login2',data);
+//登出
 export const apiUserLogout = (config) => userRequest.get('/logout2',config);
+//註冊
 export const apiUserRegister = (data) => userRequest.post('/signup',data);
-//使用者資料 相關的 api
+//使用者詳細資料
 export const apiUserDetailsRequest = (config) => userRequest.get('/me',config);
-//refreshToken 驗證 相關的 api
+//refreshToken 驗證 
 export const apiUserRefreshToken = () =>userRequest.post('/refreshToken');
 
-
 //餐廳內容 相關的 api
+//取得餐廳資料
 export const apiContentItem = () => dashboardRequest.get('/restaurants');
-//編輯 刪除 餐廳資訊
+//餐廳評分資料
+export const apiGetScore = (restaurantID) => dashboardRequest.get(`/score/${restaurantID}`);
+//餐廳留言資料
+export const apiGetMessage = (restaurantID) => dashboardRequest.get(`/message/${restaurantID}`);
+//刪除餐廳資料
 export const apiContentItemDelete = (id) => dashboardRequest.delete('/',id)
-//餐廳資訊上傳 相關的 api
+//編輯餐廳資料
+export const apiContentItemEdit = (restaurantID,data) => dashboardRequest.put(`/restaurant/${restaurantID}`,data)
+//餐廳資料上傳 
 export const apiUpLoadmenu = (data) => dashboardRequest.post('/createMenu',data);
 
-//cart 相關的 api (findCart)
-export const apiCartRecord = (userid) => dashboardRequest.get(`/carts/${userid}`);
+//cart 相關的 api 
+//購物車紀錄 (findCart )
+export const apiCartRecord = (userID) => dashboardRequest.get(`/carts/${userID}`);
 //新增購物車(CreatCart)
 export const apiCreatCart = (data) => dashboardRequest.post('/carts',data)
 
 //訂單紀錄 相關的 api
+//訂單紀錄
 export const apiUserRecord = (userid) => dashboardRequest.get(`/orderRecord/${userid}`)
+//送出訂單
 export const apiOrderDish = (data) => dashboardRequest.post('/orderRecord',data)
+//訂單評分
+export const apiCreateScore = (data) => dashboardRequest.post('/score',data)
+//訂單餐廳留言
+export const apiCreateMessage = (data) => dashboardRequest.post('/message',data)
 
 //搜尋 相關的 api
 export const apiSearch = (config) => dashboardRequest.get('/search',config)

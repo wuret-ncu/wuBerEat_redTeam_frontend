@@ -15,6 +15,7 @@ export default function Homepage() {
     const [searching,setSearching] = useState(false)
     const [dishShow,setDishShow] = useState(false)
     const [dishData,setDishData] = useState(null)
+    const [userId,setUserId] = useState("");
     
 
     const fetchUserDetails = useCallback(()=>{
@@ -26,6 +27,7 @@ export default function Homepage() {
             if(response.statusText === 'OK'){
                 //console.log(response);
                 const data = await response.data
+                setUserId(data._id)
                 setUserContext( prevData =>{
                     return{...prevData, details : data}
                 })
@@ -47,7 +49,20 @@ export default function Homepage() {
         }
     },[userContext.details, fetchUserDetails])
     
-    
+    //查看是否有購物車紀錄
+    useEffect(()=>{
+        if( userId !== ""){
+            apiCartRecord(userId)
+            .then(res=>{
+                let cookieValue = decodeURIComponent(document.cookie.replace(/(?:(?:^|.*;\s*)cart\s*\=\s*([^;]*).*$)|^.*$/, "$1"));
+                let historyCart = JSON.parse(cookieValue)
+                window.localStorage.setItem("cartItems", JSON.stringify(historyCart.history[0].dish[0]))
+            })
+            .catch(err=>{
+                console.log(err);
+            })
+        }
+    },[userId])
 
     return  userContext.details === null?(
         "Error Loading"

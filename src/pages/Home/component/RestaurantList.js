@@ -115,10 +115,11 @@ export default function RestaurantList({searchValue, searching, setSearching,set
                 </div>
             </div>
             <div className="row">
-                {contentItem.map(item =>{
+                {contentItem.map((item,index) =>{
                     const{ menu,restaurantName ,type, _id} = item
                     return(
                         <Restaurant_Item 
+                            key={index}
                             setDishData={setDishData}
                             setRestaurantId={setRestaurantId}
                             cardImgSrc={menu} 

@@ -6,6 +6,7 @@ import { apiContentItemDelete } from '../../../global/api';
 
 export default function Restaurant_Item({cardImgSrc,cardTitle, cardContent,id,setRestaurantId}) {
     const [modalshow,setmodalshow] = useState(false)
+    const [editRestaurantId,setEditRestaurantId] = useState(null)
     
     //刪除
     const deleteMenu = () =>{
@@ -21,6 +22,7 @@ export default function Restaurant_Item({cardImgSrc,cardTitle, cardContent,id,se
     //編輯
     const EditMenu = () =>{
       setmodalshow(true)
+      setEditRestaurantId(id)
     }
 
     //加入購物車 => DishList
@@ -62,7 +64,7 @@ export default function Restaurant_Item({cardImgSrc,cardTitle, cardContent,id,se
                     <button type="button" className="btn btn-outline-danger" onClick={deleteMenu}><i className="fas fa-trash-alt"></i></button>
                 </div>
             </div>
-            {modalshow && <EditWindow hide={setmodalshow}/>}
+            {modalshow && <EditWindow hide={setmodalshow} editRestaurantId={editRestaurantId}/>}
         </div>
            
     )

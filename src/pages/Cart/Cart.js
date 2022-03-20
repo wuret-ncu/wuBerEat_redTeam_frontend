@@ -36,46 +36,55 @@ export default function Cart() {
         })
     },[])
 
-    //查看是否有購物車紀錄
-    useEffect(()=>{
-        if( userId !== ""){
-            apiCartRecord(userId)
-            .then(res=>{
-                let cookieValue = decodeURIComponent(document.cookie.replace(/(?:(?:^|.*;\s*)cart\s*\=\s*([^;]*).*$)|^.*$/, "$1"));
-                let historyCart = JSON.parse(cookieValue)
-                window.localStorage.setItem("cartItems", JSON.stringify(historyCart.history[0].dish[0]))
-            })
-            .catch(err=>{
-                console.log(err);
-            })
-        }
-    },[userId])
-
     //把訂單所需的資料包成一個物件
     useEffect(() => {
         setCartData({
             userId:userId,
             history:[{
                     restaurantName:restaurantName,
-                    dish:[
-                        cartContext
-                    ]
-                
+                    dish:cartContext
                 }
             ]
         })
     }, [userId,restaurantName,cartContext])
 
-    //送出訂單給後端
-    const handleOrder = () =>{
-            apiOrderDish(cartData)
+    //更新購物車
+    useEffect(() => {
+        if( userId !== ""){
+            console.log(cartData);
+            apiCreatCart(cartData)
             .then(res=>{
                 console.log(res);
             })
             .catch(err=>{
                 console.log(err);
-            })
+            }) 
+        }
+    }, [cartData])
+
+    //送出訂單給後端
+    const handleOrder = () =>{
+        apiOrderDish(cartData)
+        .then(res=>{
+            console.log(res);
+        })
+        .catch(err=>{
+            console.log(err);
+        })
+
+        setCartData({
+            userId:userId,
+            history:[{
+                    restaurantName:restaurantName,
+                    dish:[]
+                }
+            ]
+        })
+        localStorage.removeItem('cartItems');
+
     }
+
+    
 
     return (
         <>
@@ -93,9 +102,9 @@ export default function Cart() {
                     <div className="col-8 backtoshop">
                         <Link to="/Homepage" ><i className="fas fa-arrow-left"></i>&nbsp;Back</Link>
                     </div>
-                    <div className="col-4">
+                    {/* <div className="col-4">
                         <span className="text-end">Total Price</span>    
-                    </div>
+                    </div> */}
                 </div>
                 <div className="row justify-content-end "> 
                     <div className="col col-md-4 col-sm-8 cartbtn text-end">

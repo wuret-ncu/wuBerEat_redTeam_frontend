@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect, useRef,useContext} from 'react';
 import {CartContext} from '../../../global/CartContext'
+import { apiGetScore,apiGetMessage } from '../../../global/api';
 
 export default function DishList({dishData}) {
     const [markerPosition, setMarkerPosition] = useState({lat:24.968281,lng:121.192889});
@@ -10,7 +11,13 @@ export default function DishList({dishData}) {
     const mapRef = useRef(null); 
     const markerRef = useRef(null); 
     const circleRef = useRef(null); 
-    const [cartContext,setCartContext] = useContext(CartContext) //cart
+    //以上與 Map 相關
+    const [cartContext,setCartContext] = useContext(CartContext); //cart
+    const restaurantId = dishData[0]._id;
+    const [starScore,setStarScore] = useState(0);
+    const [messageData,setMessageData] = useState([]);
+
+    
 
     const handleFlyTo = () =>{
         mapRef.current.flyTo(markerPosition, 15, {
@@ -60,9 +67,46 @@ export default function DishList({dishData}) {
             }
         handleFlyTo()
     },[markerPosition])
+    //取得餐廳score & Message
+    useEffect(()=>{
+        apiGetScore(restaurantId)
+        .then(async res=>{
+            console.log(res);
+            const data = await res.data
+            averageScore(data)
+        }).catch(err=>{
+            console.log(err);
+        })
 
-    //餐點列表
-    const DishItem = ({key,restaurantName,dishName,price}) =>{
+        apiGetMessage(restaurantId)
+        .then(async res=>{
+            console.log(res);
+            const data = await res.data
+            setMessageData(data)
+        }).catch(err=>{
+            console.log(err);
+        })
+    },[])
+
+    const averageScore = (scoreData)=>{  
+        let Sum = 0;
+        let itemsNum = 0;
+        const len = scoreData.length;
+        let item = null;
+        for (let i = 0; i < len; i++) {
+            item = scoreData[i];
+            if (item !== null) {
+                Sum = item.score + Sum;
+                itemsNum = itemsNum + 1;
+            }
+        }
+        const starScore = Sum / itemsNum;
+        setStarScore(starScore)
+        console.log(messageData);
+    }
+
+    //餐點列表 component
+    const DishItem = ({key,restaurantName,restaurantId,dishName,price}) =>{
         //加入購物車 
         const addCart=()=>{
             const orderName = dishName[0]
@@ -93,6 +137,7 @@ export default function DishList({dishData}) {
               try {
                 window.localStorage.setItem("cartItems", JSON.stringify(updatedCartItems))
                 window.localStorage.setItem("restaurantName", restaurantName)
+                window.localStorage.setItem("restaurantId",restaurantId)
               } catch (e) {
                 console.error("Error in storing cart items in local storage")
               }
@@ -121,6 +166,22 @@ export default function DishList({dishData}) {
         )
     }
     
+    //Message Component
+    const MessageArea = ({messageContent,messageDate})=>{
+        return(
+            
+                <div className='col'>
+                    <div class="alert alert-primary" role="alert">
+                    <h4 class="alert-heading">Comment:</h4>
+                    <p>{messageContent}</p>
+                    <hr />
+                    <p class="mb-0 text-end">{messageDate}</p>
+                    </div>
+                </div>
+            
+        )
+    }
+
     return (
         <>
         <div className="col mt-4">
@@ -138,7 +199,7 @@ export default function DishList({dishData}) {
                             <i className="far fa-star"></i>
                         </div>
                         <div className='col'>
-                            <h5> 1</h5>
+                            <h5>{starScore}</h5>
                         </div>
                     </div>
                     <div className='row mt-2'>
@@ -195,12 +256,23 @@ export default function DishList({dishData}) {
                         const price = Object.values(value)
                         return (
                             <>
-                                <DishItem key={key} restaurantName={restaurantName} dishName={dishName} price={price}/>
+                                <DishItem key={key} restaurantName={restaurantName} restaurantId={restaurantId} dishName={dishName} price={price}/>
                             </>
                         );
                     })
                 }
                 </div>    
+            </div>
+        </div>
+        <div className="container mb-4">
+            <div className='row'>
+                {Object.entries(messageData).map(([key,value], i) => {
+                    const messageContent = value.content
+                    const messageDate = value.date
+                    return(
+                        <MessageArea messageContent={messageContent} messageDate={messageDate}/>
+                    ) 
+                })}
             </div>
         </div>
         </>

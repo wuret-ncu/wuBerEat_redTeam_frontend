@@ -14,7 +14,7 @@ import {
 } from 'react-router-dom';
 import {useEffect, useContext, useCallback } from 'react';
 import { AuthContext } from './global/AuthContext';
-import { apiUserRefreshToken } from './global/api';
+import { apiUserRefreshToken} from './global/api';
 
 function App() {
   const[userContext, setUserContext] = useContext(AuthContext);
@@ -45,6 +45,7 @@ function App() {
     verifyUser()
   },[verifyUser])
 
+  //登出
   const synclogout = useCallback(event=>{
     if(event.key === "logout"){
       window.location.reload()
@@ -61,7 +62,7 @@ function App() {
   return (    
     <Router>
       <Switch>
-        <ProtectedLogin path="/SignIn" auth={userContext} component={SignIn} />
+        <ProtectedLogin exact path="/" auth={userContext} component={SignIn} />
         <ProtectedLogin path="/SignUp" auth={userContext} component={SignUp} />
         <ProtectedRoute path="/Homepage" auth={userContext} component={Homepage} />
         <ProtectedRoute path="/Cart" auth={userContext} component={Cart} />

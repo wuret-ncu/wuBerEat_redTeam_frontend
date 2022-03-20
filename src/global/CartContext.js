@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState} from "react";
 const CartContext = React.createContext([{}, ()=>{}]);
 
 let initialState = []
@@ -10,7 +10,7 @@ try {
     const item = window.localStorage.getItem("cartItems")
     initialState = item ? JSON.parse(item) : []
   } catch (error) {
-
+        console.log(error);
   }
 
 const CartProvider = props => {

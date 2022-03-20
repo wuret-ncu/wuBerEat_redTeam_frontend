@@ -2,7 +2,6 @@ import React, { useEffect } from 'react';
 import './Cart_Item.css'
 import { useContext } from 'react'; 
 import { CartContext } from '../../../global/CartContext';
-import { apiCreatCart } from '../../../global/api';
 
 export default function CartItem({cartData}) {
     const[cartContext,setCartContext] = useContext(CartContext)
@@ -31,14 +30,7 @@ export default function CartItem({cartData}) {
               //把購物車資料放在 localstorage 裡面
               try {
                 window.localStorage.setItem("cartItems", JSON.stringify(updatedCartItems))
-                //更新購物車
-                apiCreatCart(cartData)
-                .then(res=>{
-                    console.log(res);
-                })
-                .catch(err=>{
-                    console.log(err);
-                })
+                console.log(cartContext);
               } catch (e) {
                 console.error("Error in storing cart items in local storage")
               }
@@ -75,19 +67,7 @@ export default function CartItem({cartData}) {
               }
               return updatedCartItems
             })
-
-            //更新購物車
-            apiCreatCart(cartData)
-            .then(res=>{
-                console.log(res);
-            })
-            .catch(err=>{
-                console.log(err);
-            })
-        }
-
-        
-            
+        }      
         return(
             <div className="row g-0 align-items-center mb-3">
                 <div className="col-6 col-md-3">

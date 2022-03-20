@@ -46,7 +46,7 @@ export default function SignIn() {
                         <form className ="form" onSubmit={handleSubmit}>
                         <div className="row">
                             <span className="leftText col col-lg-7">Sign Up</span>
-                            <span className="rightText col col-lg-5 text-end"><Link to="/SignIn" >+Sign In</Link></span>
+                            <span className="rightText col col-lg-5 text-end"><Link to="/" >+Sign In</Link></span>
                         </div>
                         <hr className="hr"/> 
                             <div>
