@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/wuBerEat_redTeam_frontend/static/css/main.ac64df27.chunk.css",
+    "main.js": "/wuBerEat_redTeam_frontend/static/js/main.c85180b5.chunk.js",
+    "main.js.map": "/wuBerEat_redTeam_frontend/static/js/main.c85180b5.chunk.js.map",
+    "runtime-main.js": "/wuBerEat_redTeam_frontend/static/js/runtime-main.38fedf77.js",
+    "runtime-main.js.map": "/wuBerEat_redTeam_frontend/static/js/runtime-main.38fedf77.js.map",
+    "static/js/2.9b6a809a.chunk.js": "/wuBerEat_redTeam_frontend/static/js/2.9b6a809a.chunk.js",
+    "static/js/2.9b6a809a.chunk.js.map": "/wuBerEat_redTeam_frontend/static/js/2.9b6a809a.chunk.js.map",
+    "static/js/3.beb6b9f4.chunk.js": "/wuBerEat_redTeam_frontend/static/js/3.beb6b9f4.chunk.js",
+    "static/js/3.beb6b9f4.chunk.js.map": "/wuBerEat_redTeam_frontend/static/js/3.beb6b9f4.chunk.js.map",
+    "index.html": "/wuBerEat_redTeam_frontend/index.html",
+    "static/css/main.ac64df27.chunk.css.map": "/wuBerEat_redTeam_frontend/static/css/main.ac64df27.chunk.css.map",
+    "static/js/2.9b6a809a.chunk.js.LICENSE.txt": "/wuBerEat_redTeam_frontend/static/js/2.9b6a809a.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.38fedf77.js",
+    "static/js/2.9b6a809a.chunk.js",
+    "static/css/main.ac64df27.chunk.css",
+    "static/js/main.c85180b5.chunk.js"
+  ]
+}
